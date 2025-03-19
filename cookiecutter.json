@@ -10,7 +10,7 @@
     "destination_type": ["LSC", "NW"],
     "destination_format": ["DUCKDB", "CSV"],
     "environment": ["PROD", "DEV", "TEST"],
-    "__github_cr8tor_branch": "main",
+    "__dev_mode": false,
     "__timestamp": "{{ cookiecutter.__timestamp }}",
     "__cr8_cc_template": "{{ cookiecutter.__cr8_cc_template }}",
     "__prompts__": {

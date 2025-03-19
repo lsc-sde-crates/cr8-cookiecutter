@@ -2,7 +2,17 @@ name: Orchestrate Data Load
 
 on:
     workflow_dispatch:
-
+      {% if cookiecutter.__dev_mode -%}
+      inputs:
+        environment:
+           required: true
+           default: '{{ cookiecutter.environment }}'
+           type: string
+        cr8tor_branch:
+           required: false
+           default: 'main'
+           type: string
+      {% endif -%}
 {% raw %}
 concurrency:
     group: ${{ github.workflow }}
@@ -10,12 +20,16 @@ concurrency:
 {% endraw %}
 jobs:
     RunOrchestrator:
-      uses: lsc-sde-crates/cr8tor/.github/workflows/orchestrator.yml@{%- if cookiecutter.__github_cr8tor_branch -%}{{cookiecutter.__github_cr8tor_branch}}{%- else -%}main{% endif %}
+      uses: lsc-sde-crates/cr8tor/.github/workflows/orchestrator.yml@{%- if cookiecutter.__dev_mode -%}{% raw %}${{ inputs.cr8tor_branch }}{% endraw %}{%- else -%}main{% endif %}
       #uses: ./../cr8tor/.github/workflows/orchestrator.yml
       name: Run Orchestrator
       with:
+        {%+ if cookiecutter.__dev_mode -%}
+        {% raw %}
+        environment: ${{ inputs.environment }}
+        cr8tor_branch: ${{ inputs.cr8tor_branch }}
+        {% endraw %}
+        {%- else -%}
         environment: {{ cookiecutter.environment }}
-        {%+ if cookiecutter.__github_cr8tor_branch -%}
-        cr8tor_branch: {{cookiecutter.__github_cr8tor_branch}}
-        {% endif %}
+        {% endif -%}
       secrets: inherit
