@@ -1,0 +1,16 @@
+project:
+  name: "{{ cookiecutter.project_name }}"
+  description: "{{ cookiecutter.project_description }}"
+  reference: "{{ cookiecutter.__project_slug }}"
+users:
+- id: "https://example.org/users/{{ cookiecutter.requester | lower | replace(' ', '-') }}"
+  username: "{{ cookiecutter.requester | lower | replace(' ', '') }}"
+  given_name: "{{ cookiecutter.requester }}"
+  affiliation: "{{ cookiecutter.requester_affiliation }}"
+  email: "{{ cookiecutter.requester_email }}"
+  groups:
+  - value: researchers
+    display: Research Group
+    type: Manual
+  start_date: '2024-01-01T00:00:00Z'
+  expiry_date: '2030-01-01T00:00:00Z'

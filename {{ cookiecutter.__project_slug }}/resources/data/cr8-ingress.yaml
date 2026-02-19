@@ -1,0 +1,20 @@
+source:
+  name: source-db
+  type: "{{ cookiecutter.destination_type }}"
+  url: ""
+  credentials:
+    provider: AzureKeyVault
+    password_key: source-db-password
+    username_key: source-db-username
+destination:
+  type: "{{ cookiecutter.destination_type }}"
+datasets:
+- name: myDataset
+  schema_name: public
+  tables:
+  - name: source_table
+    columns:
+    - name: id
+      datatype: UUID
+    - name: value
+      datatype: VARCHAR

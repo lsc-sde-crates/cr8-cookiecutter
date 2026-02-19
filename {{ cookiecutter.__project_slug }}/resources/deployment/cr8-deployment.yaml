@@ -1,0 +1,15 @@
+environment:
+  name: "{{ cookiecutter.environment | lower }}-tre"
+
+resources:
+  - name: jupyterhub-main
+    resource_type: Jupyter
+    url: https://jupyter.example.org
+    enabled: true
+    auth: oidc
+
+  - name: keycloak-main
+    resource_type: Keycloak
+    url: https://auth.example.org
+    enabled: true
+    realm: "{{ cookiecutter.environment | lower }}-tre"
